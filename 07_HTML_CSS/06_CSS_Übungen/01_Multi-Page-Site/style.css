@@ -1,0 +1,84 @@
+/* Variablen */
+:root {
+  --cool-color: #6b8cb4;
+  --bg-primary: #312f2e;
+}
+
+/* Reset & Grundstylings */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--cool-color);
+
+  /* font-family: 'Lora', 'Times New Roman', Times, serif; */
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Lora', 'Times New Roman', Times, serif;
+}
+
+a,
+button {
+  /* color: var(--cool-color); */
+  color: inherit;
+  font: inherit;
+}
+
+/* Navigation */
+header nav ul {
+  list-style: none;
+}
+
+header nav li {
+  display: inline;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Bildkomponente */
+.featured-image {
+  /* width: ; */
+  height: 300px;
+  margin-bottom: 50px;
+}
+
+.featured-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 65%;
+}
+
+/* Sections mit Textinhalten */
+section {
+  margin-bottom: 30px;
+}
+
+/* Footer */
+footer {
+  margin-top: 50px;
+  padding-bottom: 30px;
+  /* border: 10px solid black; */
+  background-color: slateblue;
+}
