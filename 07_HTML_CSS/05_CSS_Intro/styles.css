@@ -1,0 +1,42 @@
+p {
+  background-color: orange;
+
+  font-size: 18px;
+}
+
+.blog-artikel {
+  text-shadow: 1px 1px red;
+}
+
+#para-mit-id {
+  color: white;
+  opacity: 1;
+}
+
+.artikel-des-tages {
+  border: 2px dashed green;
+  opacity: 0.6;
+}
+
+p.artikel-des-tages {
+}
+
+article.artikel-des-tages.blog-artikel {
+}
+
+nav a {
+  text-decoration: none;
+  /* color: inherit; */
+}
+
+a:hover {
+  color: red;
+}
+
+li:hover + li {
+  color: green;
+}
+
+body {
+  color: blue;
+}
