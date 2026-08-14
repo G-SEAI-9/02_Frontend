@@ -1,0 +1,90 @@
+/* Box-Modell: border-box rechnet padding + border in die width/height mit ein.
+   Ohne diese Zeile käme beides noch dazu. Fast immer sinnvoll. */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 30px; /* NICHT mit px-Werten überschreiben, da sonst Einstellungen des Nutzers verloren gehen würden */
+}
+
+/* Media Query: gilt nur, wenn die Bedingung stimmt – hier Bildschirm schmaler als 500px */
+@media screen and (width < 500px) {
+  body {
+    background-color: rebeccapurple;
+  }
+}
+
+.box {
+  /* display: inline; */
+  /* box-sizing: border-box; */
+
+  height: 200px;
+  /* Sichtbare Breite mit border-box = 200px.
+     Ohne border-box wären es 200 + padding (20+42) + border (2×20) = 302px */
+  width: 200px; /* 200 + 62 + 20 = 302  */
+  background-color: darkgreen;
+  /* padding: 50px; */
+  /* padding-top: 10px; */
+  /* padding-left: 100px; */
+  /* Innenabstand (zwischen Inhalt und Rand/Border), Kurzschreibweise:
+     oben | rechts | unten | links – im Uhrzeigersinn */
+  padding: 100px 20px 10px 42px;
+  border: 20px dashed red;
+  /* margin: 60px; */
+  /* Außenabstand (zu den Nachbarelementen), gleiche Reihenfolge wie padding */
+  margin: 100px 20px 10px 42px;
+
+  /* Verschachtelte Regel: gilt für <p> innerhalb von .box */
+  p {
+    font-size: 10px;
+  }
+
+  /* Media Queries lassen sich auch direkt in die Regel schachteln.
+     Kleiner Screen -> kleinere Box, weniger Abstände */
+  @media (width < 500px) {
+    height: 100px;
+    width: 100px;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  /* Großer Screen -> größere Box */
+  @media screen and (width > 1200px) {
+    height: 400px;
+    width: 400px;
+  }
+}
+
+/* Media Queries gehen nicht nur nach Breite, sondern auch nach Medientyp:
+   diese Regeln greifen nur beim Drucken / in der Druckvorschau */
+@media print {
+  body {
+    font-family: serif;
+    font-size: 12px;
+  }
+}
+
+/* rem = relativ zur Schriftgröße von <html> (Standard 16px) -> 1.5rem = 24px */
+.section {
+  font-size: 1.5rem;
+}
+/* Auch 3rem bezieht sich auf <html>, nicht auf .section.
+   Mit em (statt rem) würden sich verschachtelte Größen multiplizieren. */
+.larger {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 2rem;
+  /* max-width statt width: darf schmaler werden, aber nie breiter.
+     ch = Breite einer "0" – ca. 60 Zeichen pro Zeile lesen sich am besten. */
+  max-width: 60ch;
+  /* text-align: justify; */
+
+  /* margin: 1rem auto; */
+  /* auto links+rechts zentriert das Element innerhalb seines Elternelements */
+  margin-inline: auto;
+  /* Abstand oben+unten */
+  margin-block: 1rem;
+}
