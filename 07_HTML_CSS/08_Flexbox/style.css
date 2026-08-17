@@ -1,0 +1,158 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --blue: oklch(49.55% 0.192 280.49);
+  --red: oklch(66.09% 0.211 18.78);
+  --white: oklch(92.42% 0.001 197.14);
+  --fancy-gradient: linear-gradient(in oklch to right, var(--blue), var(--red));
+}
+
+body {
+  font-family: system-ui, Ubuntu, 'Helvetica Neue', sans-serif;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100dvh;
+  max-width: 1240px;
+  margin-inline: auto;
+}
+
+header {
+  /* background-image: var(--fancy-gradient); */
+  padding: 1.5rem;
+  /* To put the h1 and the links side by side instead of underneath */
+  display: flex;
+  /* having the h1 on the far left, the ul on the far right side */
+  justify-content: space-between;
+  /* centering the h1 and ul vertically */
+  align-items: center;
+  border: 3px solid color-mix(in oklch, var(--red) 25%, var(--blue));
+}
+
+h1 {
+  color: var(--red);
+}
+
+nav ul {
+  list-style: none;
+  /* To put the links aside, you can turn their common parent into a flexbox */
+  display: flex;
+  /* Spacing them out a bit with a gap between the flex children */
+  gap: 2rem;
+
+  border: 3px solid color-mix(in oklch, var(--red) 25%, var(--blue));
+}
+
+nav a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+nav a:hover {
+  text-decoration: underline var(--white) 2px;
+  text-underline-offset: 3px;
+}
+
+main {
+  border: 3px solid color-mix(in oklch, var(--red) 25%, var(--blue));
+
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  /* putting the elements underneath again 
+  -> main axis is now vertical
+  cross axis is horizontal */
+  flex-direction: column;
+  gap: 2rem;
+}
+
+p {
+  max-width: 80ch;
+  margin-inline: 1rem;
+}
+
+.cards-parent {
+  border: 3px solid color-mix(in oklch, var(--red) 25%, var(--blue));
+
+  display: flex;
+  /* pushing overflowing elements into a new row */
+  flex-wrap: wrap;
+  justify-content: center;
+  /* specify different spacing for columns and rows */
+  column-gap: 3rem;
+  row-gap: 2rem;
+  margin-inline: 1rem;
+}
+
+.card {
+  border: 3px solid var(--red);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: color-mix(in oklch, var(--blue), var(--red) var(--amount));
+  text-align: center;
+  flex-basis: 175px;
+  aspect-ratio: 1;
+}
+
+/* For coloring individual flex-items */
+.card:nth-child(1) {
+  --amount: 0%;
+}
+
+.card:nth-child(2) {
+  --amount: 16.6%;
+}
+
+.card:nth-child(3) {
+  --amount: 33.3%;
+}
+
+.card:nth-child(4) {
+  --amount: 50%;
+}
+
+.card:nth-child(5) {
+  --amount: 66.6%;
+}
+
+.card:nth-child(6) {
+  --amount: 83.33%;
+}
+
+.card:nth-child(7) {
+  --amount: 100%;
+}
+
+footer {
+  border: 3px solid color-mix(in oklch, var(--red) 25%, var(--blue));
+
+  display: flex;
+  color: var(--blue);
+  padding: 0.75rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-links a {
+  color: inherit;
+}
+
+.social-links a:hover {
+  color: var(--red);
+}
