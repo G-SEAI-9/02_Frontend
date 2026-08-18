@@ -16,11 +16,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  /* background-image: lädt ein Bild als Hintergrund.
+     Der Pfad ist relativ zur CSS-Datei (nicht zur HTML-Datei!). */
   background-image: url(background.webp);
   /* background-image: url(https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png); */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+
+  /* Ohne diese drei Zeilen würde das Bild in Originalgröße gekachelt: */
+  background-repeat: no-repeat; /* nur einmal anzeigen, nicht wiederholen */
+  background-size: cover; /* Bild so skalieren, dass es die ganze Fläche füllt (Rest wird abgeschnitten) */
+  background-position: center; /* welcher Bildausschnitt sichtbar bleibt, wenn beschnitten wird */
 
   min-height: 100dvh;
 
@@ -41,29 +46,46 @@ body {
 .window__header {
   color: var(--white);
   padding: 0.5rem 2rem;
+
+  /* Gradient = weicher Farbverlauf. Zählt technisch als *Bild*, darum
+     background-image (nicht background-color).
+     linear-gradient(Richtung, Farbe1, Farbe2, ...) — die Farben werden
+     gleichmäßig verteilt, "in oklch" mischt in einem Farbraum, der
+     angenehmere Zwischentöne erzeugt als der Standard.
+     Mit Prozentangaben kann man harte Kanten erzwingen, siehe Zeile darunter: */
   /* background-image: linear-gradient(90deg in oklch, red 20%, blue 20%, yellow); */
   background-image: linear-gradient(to right in oklch, #142968, #a9ccf2);
 
+  /* position: relative macht dieses Element zum Bezugspunkt für alles darin,
+     was position: absolute hat (hier: das ::after unten).
+     Ohne diese Zeile würde sich das ::after am ganzen Fenster/Viewport orientieren. */
   position: relative;
 }
 
+/* ::after ist ein Pseudoelement: ein zusätzliches Kind-Element, das nur im CSS
+   existiert — man spart sich ein leeres <div> im HTML (siehe .window__border).
+   Hier: die feine Trennlinie unter der Titelleiste. */
 .window__header::after {
-  content: '';
+  content: ''; /* notwendig — ohne content wird das Pseudoelement nicht erzeugt */
   display: block;
   height: 1px;
   width: 100%;
   background-image: linear-gradient(to right, #313e66, #96b2d0);
+
+  /* absolute nimmt das Element aus dem normalen Textfluss heraus und
+     positioniert es am relativen Elternteil (.window__header). */
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 0; /* 0px Abstand zur Unterkante des Headers */
+  left: 0; /* 0px Abstand zur linken Kante */
 }
 
 .window__heading {
   font-size: 1.25rem;
 }
 
-.window__border {
-}
+/* wird nicht mehr gebraucht — die Linie macht jetzt das ::after oben */
+/* .window__border {
+} */
 
 .window__content {
   padding: 1.5rem;
@@ -79,9 +101,15 @@ body {
 .window__img {
   width: 3rem;
   height: 3rem;
+
+  /* box-shadow legt den Schatten hinter das *Rechteck* des Elements:
+     box-shadow: x-Offset y-Offset Weichzeichnung Farbe;
+     Bei einem transparenten PNG sieht man dann einen Kasten-Schatten. */
   /* border-radius: 50%;
   box-shadow: 3px 3px 0px #7f7f7f; */
 
+  /* drop-shadow folgt dagegen der tatsächlichen Silhouette des Bildes
+     (respektiert Transparenz). */
   filter: drop-shadow(3px 3px 0px #7f7f7f);
   image-rendering: pixelated;
 }

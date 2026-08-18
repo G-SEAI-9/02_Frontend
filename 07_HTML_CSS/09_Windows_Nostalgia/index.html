@@ -9,10 +9,18 @@
   </head>
 
   <body>
-    <!-- BEM: Block-Element-Modifier -->
+    <!-- BEM: Block-Element-Modifier
+         Eine Namenskonvention für Klassen, damit man am Namen sieht, wozu etwas gehört:
+         - Block:    ein eigenständiger Baustein            -> .window
+         - Element:  ein Teil, das nur im Block Sinn ergibt  -> .window__header (zwei Unterstriche)
+         - Modifier: eine Variante von Block oder Element    -> .btn--danger (zwei Bindestriche)
+         Vorteil: flache, eindeutige Klassennamen — kein Rätselraten und keine
+         verschachtelten Selektoren wie ".window header h2". -->
 
+    <!-- Block: das Fenster. Alles darin ist ein Element davon. -->
     <div class="window">
       <!-- header: Kernel Panic -->
+      <!-- Element: gehört zum Block "window", darum window__header -->
       <header class="window__header">
         <h2 class="window__heading">Kernel panic</h2>
       </header>
@@ -28,6 +36,8 @@
           <p class="window__para">Please shut down your computer, and go for a walk.</p>
         </div>
 
+        <!-- Zwei Klassen: "btn" ist der wiederverwendbare Block (Aussehen aller Buttons),
+             "window__btn" positioniert genau diesen Button im Fenster. -->
         <button class="btn window__btn" type="button">Cancel</button>
       </div>
 
