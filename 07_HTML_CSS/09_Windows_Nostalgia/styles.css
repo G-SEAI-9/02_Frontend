@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --window-color-primary: #bfbfbf;
+  --white: #ffffff;
+  --grey: #444444;
+  --rounded: 5px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(background.webp);
+  /* background-image: url(https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  min-height: 100dvh;
+
+  font-family: Tahoma, sans-serif;
+
+  /* outline: 2px solid red; */ /* "print" debugging im CSS */
+}
+
+.window {
+  background-color: var(--window-color-primary);
+
+  border: 3px solid;
+  border-color: var(--white) var(--grey) var(--grey) var(--white);
+  border-radius: var(--rounded);
+  overflow: hidden;
+}
+
+.window__header {
+  color: var(--white);
+  padding: 0.5rem 2rem;
+  /* background-image: linear-gradient(90deg in oklch, red 20%, blue 20%, yellow); */
+  background-image: linear-gradient(to right in oklch, #142968, #a9ccf2);
+
+  position: relative;
+}
+
+.window__header::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-image: linear-gradient(to right, #313e66, #96b2d0);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.window__heading {
+  font-size: 1.25rem;
+}
+
+.window__border {
+}
+
+.window__content {
+  padding: 1.5rem;
+  text-align: end;
+}
+
+.window__message {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.window__img {
+  width: 3rem;
+  height: 3rem;
+  /* border-radius: 50%;
+  box-shadow: 3px 3px 0px #7f7f7f; */
+
+  filter: drop-shadow(3px 3px 0px #7f7f7f);
+  image-rendering: pixelated;
+}
+
+.window__btn {
+  padding: 0.25rem 0.75rem;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -1px;
+  border: 2px outset;
+  cursor: pointer;
+}
+
+.window__btn:active {
+  border-style: inset;
+}
