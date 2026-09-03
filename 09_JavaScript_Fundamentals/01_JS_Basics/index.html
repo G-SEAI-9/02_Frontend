@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      h1 {
+        color: red;
+      }
+    </style>
+    <!--
+      So bindet man eine externe JS-Datei ein.
+      defer sagt dem Browser: erst das ganze HTML lesen, Script im Hintergrund downloaden und am Ende ausführen.
+      Ohne defer würde script.js laufen, bevor die <h1> überhaupt existiert -
+      querySelector('h1') fände dann nichts.
+    -->
+    <script src="script.js" defer></script>
+    <title>JS Basics</title>
+  </head>
+
+  <body>
+    <!-- Diese Überschrift wird von script.js zur Laufzeit überschrieben -->
+    <h1>Hallo, JavaScript</h1>
+
+
+    <!--
+      Zweite Möglichkeit: JS direkt im HTML ("inline script").
+      Praktisch zum Ausprobieren, für echte Projekte aber besser eine eigene
+      .js-Datei - dort bleibt der Code übersichtlich und wiederverwendbar.
+    -->
+    <script>
+      // console.log ist das JS-Gegenstück zu Pythons print().
+      // Die Ausgabe erscheint in der Browser-Konsole, nicht auf der Seite.
+      // print()
+      console.log("Hallo, Welt!")
+      console.log("ich bin 'print'")
+    </script>
+  </body>
+
+</html>
