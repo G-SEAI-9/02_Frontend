@@ -4,26 +4,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>" />
+
+
+    <style type="text/tailwindcss">
+      @theme {
+       --color-midnight: #121063;
+      --color-tahiti: #3ab7bf;
+       --color-bermuda: #78dcca;
+       --color-mycolor: oklch(0.656 0.241 354.308);
+     }
+    </style>
+
 
     <title>TailwindCSS Demo</title>
   </head>
 
 
-  <body>
-    <article class="card">
+  <body class="bg-midnight md:bg-amber-900 lg:bg-bermuda grid min-h-screen place-content-center">
+    <article class="card w-md md:w-lg px-8 py-5 pl-12 shadow-lg">
       <header class="card-header">
         <hgroup>
-          <h2 class="card-title">
+          <h2 class="card-title text-mycolor">
             Taciti eros morbi sapien sit nec ac
           </h2>
           <p class="card-date">
             Created on <time datetime="2026-02-11">11.02.2026</time>
           </p>
         </hgroup>
-        <div class="card-menu">
+        <div class="card-menu hover:bg-white/20 transition-colors duration-200">
           <span class="card-menu-dots">...</span>
         </div>
       </header>

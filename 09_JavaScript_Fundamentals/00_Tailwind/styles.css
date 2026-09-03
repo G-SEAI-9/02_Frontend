@@ -8,14 +8,14 @@
   --cyan-500: oklch(0.715 0.143 215.221);
 }
 
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   border: 0 solid;
-}
+} */
 
 html {
   line-height: 1.5;
@@ -41,22 +41,22 @@ progress {
   vertical-align: baseline;
 }
 
-body {
+/* body {
   display: grid;
   min-height: 100vh;
   place-content: center;
   background-image: linear-gradient(to top right, var(--indigo-950) 0%, var(--indigo-900) 50%, var(--indigo-950) 100%);
-}
+} */
 
 .card {
   position: relative;
-  width: 28rem;
+  /* width: 28rem; */
   overflow: hidden;
   border-radius: 1rem;
   background-color: var(--indigo-950);
-  padding: 2rem;
+  /* padding: 2rem; */
   color: var(--slate-200);
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+  /* box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.6); */
 }
 
 .card::before {
@@ -99,12 +99,12 @@ body {
   cursor: pointer;
   border-radius: calc(infinity * 1px);
   border: 1px solid rgb(0 0 0 / 0.5);
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); */
 }
 
-.card-menu:hover {
+/* .card-menu:hover {
   background-color: rgb(255 255 255 / 0.2);
-}
+} */
 
 .card-menu-dots {
   translate: 1px -20%;

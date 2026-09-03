@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>" />
+
+    <title>Tailwind Demo</title>
+  </head>
+  <!-- Hier für euch zum Abgleich noch das komplette Styling der Kartenkomponente mit ein paar Extras. -->
+
+  <body class="grid min-h-screen place-content-center bg-linear-to-tr from-indigo-950 via-indigo-900 to-indigo-950">
+    <article
+      class="relative w-md space-y-5 overflow-hidden rounded-2xl bg-indigo-950 p-8 text-slate-200 shadow-2xl shadow-black/60 before:absolute before:top-0 before:left-0 before:h-0.5 before:w-full before:bg-pink-500">
+      <header class="flex justify-between">
+        <hgroup>
+          <h2 class="text-lg font-semibold">
+            Taciti eros morbi sapien sit nec ac
+          </h2>
+          <p class="text-xs font-light">
+            Created on <time datetime="2016-02-11">11.02.2016</time>
+          </p>
+        </hgroup>
+        <div
+          class="grid aspect-square h-8 cursor-pointer place-content-center rounded-full border border-black/50 transition-colors hover:bg-white/20">
+          <span class="translate-x-px -translate-y-1/5 font-extralight tracking-widest">...</span>
+        </div>
+      </header>
+
+      <p class="text-sm text-pretty">
+        Vitae nisl velit donec egestas mi, dolor cras dolor nec sodales quis at,
+        lacinia non egestas lectus praesent quam at, magnis posueere libero.
+      </p>
+
+      <div class="flex items-center justify-between gap-4 text-sm font-semibold">
+        <span>Tasks</span><progress
+          class="h-2 flex-1 rounded-full [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-black/30 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-cyan-500"
+          value="43" max="100" id="progress"></progress><label for="progress">43%</label>
+      </div>
+
+      <div class="flex gap-3">
+        <img class="aspect-square w-10 rounded-full border border-black/60 outline outline-offset-2 outline-black/60"
+          width="50" height="50" src="https://api.dicebear.com/10.x/pixel-art/svg?seed=Nicole" alt="" />
+        <img class="aspect-square w-10 rounded-full border border-black/60 outline outline-offset-2 outline-black/60"
+          width="50" height="50" src="https://api.dicebear.com/10.x/pixel-art/svg?seed=Michael" alt="" />
+        <img class="aspect-square w-10 rounded-full border border-black/60 outline outline-offset-2 outline-black/60"
+          width="50" height="50" src="https://api.dicebear.com/10.x/pixel-art/svg?seed=Katharina" alt="" />
+        <img class="aspect-square w-10 rounded-full border border-black/60 outline outline-offset-2 outline-black/60"
+          width="50" height="50" src="https://api.dicebear.com/10.x/pixel-art/svg?seed=Eric" alt="" />
+      </div>
+    </article>
+  </body>
+
+</html>
