@@ -13,6 +13,14 @@ const array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 //     *   The `splice` method can be used to remove elements, add elements,
 //  or both.
 //     *   Syntax: `array.splice(start, deleteCount, item1, item2, ...)`
+let numbers = [10, 20, 30, 40, 50];
+
+// numbers.splice(2, 1, 35, 36);
+// console.log('Numbers nach splice: ', numbers);
+
+const newArray = numbers.toSpliced(2, 1, 35, 36);
+console.log('Numbers nach splice: ', numbers);
+console.log(newArray);
 
 // 2.  **Remove the element at index 1 and add b and c with toSpliced**
 

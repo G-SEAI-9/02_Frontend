@@ -4,7 +4,13 @@
 
 //     *   Use `const` to declare a variable named `birthYear` and assign it the value `1999`.
 
+const birthYear = 1999;
+// birthYear = 2000;
+
 //     *   Use `let` to declare a variable named `name` and assign it the value `"John Doe"`.
+
+let name = 'John Doe';
+name = 'Jane Doe';
 
 //     *   Use `const` to declare a variable named `isStudent` and assign it the value `true`.
 

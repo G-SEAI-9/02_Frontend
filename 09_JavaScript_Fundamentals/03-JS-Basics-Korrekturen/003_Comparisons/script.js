@@ -16,6 +16,19 @@
 
 //     *   Compare `5` and `'5'` using simple and strict equality.
 
+const five = 5;
+let anotherVar = 5;
+console.log(anotherVar == five);
+anotherVar = '5';
+console.log(anotherVar == five);
+console.log("'5' === 5: ", anotherVar === five);
+console.log("'5' !== 5: ", anotherVar !== five);
+
+console.log("'5' == 5: ", anotherVar == five);
+console.log("'5' != 5: ", anotherVar != five);
+
+console.log('10 >= anotherVar', 10 >= anotherVar);
+
 //     *   Compare `10` and `'10'` using simple and strict inequality.
 
 //     *   Check if `5` is greater than `3` and if `'5'` is greater than `'3'`.

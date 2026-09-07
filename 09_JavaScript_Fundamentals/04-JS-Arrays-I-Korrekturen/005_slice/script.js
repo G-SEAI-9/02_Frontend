@@ -19,6 +19,8 @@ const array = [2, 4, 6, 8, 10, 12, 14, 16];
 // Extract different portions of the array and print the results
 
 // items from index 2-4 (including 4)
+const middleCopy = array.slice(2, 4);
+console.log('middleCopy', middleCopy);
 
 // items from index 0-5 (including 5)
 
