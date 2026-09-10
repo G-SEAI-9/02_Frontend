@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+.toast-card {
+  animation: remove 100ms 2000ms linear forwards;
+  transition-behavior: allow-discrete;
+}
+
+@keyframes remove {
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
