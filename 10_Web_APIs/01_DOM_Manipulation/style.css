@@ -11,3 +11,8 @@
     opacity: 0;
   }
 }
+
+.my-label {
+  font-family: serif;
+  border: 1px solid orange;
+}
