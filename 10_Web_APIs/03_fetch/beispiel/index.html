@@ -7,6 +7,7 @@
     <link rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- type="module" lädt das Skript automatisch erst nach dem HTML -->
     <script src="script.js" type="module"></script>
     <title>Fetch API</title>
   </head>
@@ -16,17 +17,21 @@
     <h1>Fetching!</h1>
 
     <div class="flex flex-col items-center gap-14">
+      <!-- Container für den Comic: script.js leert ihn und schreibt
+           per insertAdjacentHTML das <figure> (oder eine Fehlermeldung) hinein -->
       <article class="h-96 content-center" id="comic-container">
-        <figure class="h-full">
+        <!-- <figure class="h-full">
           <img class="h-full w-full" src="https://imgs.xkcd.com/comics/dimensional_lumber_tape_measure.png"
             alt="A person with two watches is never sure what time it is, especially if I got them one of the watches." />
           <figcaption class="contain-inline-size flex justify-between">
             <span>Dimensional Lumber Tape Measure</span>
             <time datetime="2025-09-08">8.9.2025</time>
           </figcaption>
-        </figure>
+        </figure> -->
+        <!-- Platzhalter, solange der erste fetch noch läuft -->
         <p>Loading...</p>
       </article>
+      <!-- Über diese id hängt script.js den Klick-Listener an -->
       <button type="button" id="get-comic"
         class="cursor-pointer rounded bg-linear-0 from-indigo-950 to-purple-900 px-3 py-2 disabled:cursor-default disabled:grayscale-70">
         <span class="rounded-full bg-linear-0 from-purple-900 to-indigo-950 px-2 py-1">Get Comic!</span>
