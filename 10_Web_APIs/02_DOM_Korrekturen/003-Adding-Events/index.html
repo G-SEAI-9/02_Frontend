@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Handling Exercise</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="flex flex-col items-center justify-center p-4">
+      <div class="space-y-4">
+        <button type="button" id="add-item-btn" class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-400">
+          Add Item
+        </button>
+        <button type="button" id="alert-btn" class="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-400">
+          Show Alert
+        </button>
+        <button type="button" id="console-btn" class="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-400">
+          Log to Console
+        </button>
+      </div>
+      <ul id="item-list" class="mt-4 h-40 w-full max-w-md overflow-y-scroll rounded bg-white p-4 shadow-md">
+        <!-- <li class="font-semibold p-3 border shadow rounded-2xl">Some task</li> -->
+      </ul>
+    </div>
+  </body>
+
+</html>
