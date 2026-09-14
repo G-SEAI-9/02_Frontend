@@ -3,7 +3,7 @@ const ulElement = document.getElementById('todo-list');
 function renderTodos(data) {
   const todos = data
     .map((todo) => {
-      return `<li  class=" rounded-2xl px-4 py-2 flex flex-wrap items-center gap-x-4 gap-y-2
+      return `<li class=" rounded-2xl px-4 py-2 flex flex-wrap items-center gap-x-4 gap-y-2
                 before:content-[''] before:block before:w-5 before:h-5
                 before:rounded-full before:border-2 ${
                   todo.completed ? 'before:bg-green-400 before:border-green-400' : 'before:border-gray-400'
@@ -16,7 +16,7 @@ function renderTodos(data) {
 
 async function fetchData(url) {
   const response = await fetch(url);
-  if (!response.ok) throw new Error('no data fetched');
+  if (!response.ok) throw new Error('no data fetched'); // 400 - 500
   console.log(response);
   return await response.json();
 }
@@ -24,7 +24,9 @@ async function fetchData(url) {
 async function main() {
   try {
     const todoData = await fetchData('https://jsonplaceholder.typicode.com/todos');
+    // console.log(todoData);
     const todoHTML = renderTodos(todoData);
+    console.log(todoHTML);
     ulElement.insertAdjacentHTML('beforeend', todoHTML);
   } catch {
     ulElement.insertAdjacentHTML('beforeend', '<p>Error: Try again later</p>');
