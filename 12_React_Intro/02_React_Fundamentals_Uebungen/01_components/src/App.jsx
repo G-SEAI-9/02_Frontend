@@ -1,7 +1,15 @@
+import Footer from './components/Footer.jsx';
+import Header from './components/Header.jsx';
+import Hero from './components/Hero.jsx';
+import Services from './components/Services.jsx';
+
 function App() {
   return (
     <>
-      <h1>Components</h1>
+      <Header />
+      <Hero />
+      <Services />
+      <Footer />
     </>
   );
 }
