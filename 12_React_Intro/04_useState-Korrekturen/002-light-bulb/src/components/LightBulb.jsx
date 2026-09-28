@@ -1,6 +1,23 @@
-const LightBulb = () => {
+// LightBulb hat keinen eigenen State. Sie bekommt isOn als Prop und leitet daraus nur ab,
+// welche CSS-Klassen gesetzt werden. Der State selbst lebt in App.
+const LightBulb = ({ isOn }) => {
+  // Schritt 1 der Herleitung: Klassenname in einer Variablen vorbereiten
+  // und per if ergänzen. Funktioniert, ist aber recht lang.
+  // let containerClassName = 'container';
+
+  // if (isOn) {
+  //   containerClassName = 'container night';
+  // }
+
   return (
-    <div className='container'>
+    // Schritt 1 benutzt: die vorbereitete Variable einsetzen.
+    // <div className={containerClassName}>
+    // Schritt 2: Ternary-Operator direkt im JSX – Bedingung ? wennWahr : wennFalsch.
+    // <div className={isOn ? 'container night' : 'container'}>
+    // Schritt 3 (aktiv): Template-String. 'container' steht immer da,
+    // nur 'night' wird je nach isOn angehängt – so wiederholen wir 'container' nicht.
+    <div className={`container ${isOn ? 'night' : ''}`}>
+      {/* Ab hier reines Markup/CSS für die Glühbirne – für useState nicht relevant */}
       <div className='bulb-light'>
         <div id='light' />
         <div id='bulb'>
