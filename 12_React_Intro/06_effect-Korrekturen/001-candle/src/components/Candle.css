@@ -20,6 +20,8 @@
   height: 90%;
   align-self: flex-end;
   animation: blink 0.1s infinite;
+
+  transition: height 1000ms linear;
 }
 
 .wick {
