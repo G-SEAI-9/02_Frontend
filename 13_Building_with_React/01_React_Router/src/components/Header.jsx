@@ -1,7 +1,9 @@
+import { NavLink, Link } from 'react-router';
+
 export default function Header() {
   return (
     <header className='header'>
-      <a href='#'>
+      <Link to='/'>
         <h1>Webb Gallery</h1>
         <p>
           Fancy stars
@@ -9,18 +11,18 @@ export default function Header() {
             💫
           </span>
         </p>
-      </a>
+      </Link>
       <nav>
         <ul>
           <li>
-            <a className='navlink' href='#'>
+            <NavLink className='navlink' to='/'>
               Home
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a className='navlink' href='#'>
+            <NavLink className='navlink' to='/centauri'>
               Alpha Centauri
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
