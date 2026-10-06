@@ -3,6 +3,8 @@ import { NavLink, Link } from 'react-router';
 export default function Header() {
   return (
     <header className='header'>
+      {/* <Link> statt <a href>: ändert nur die URL, ohne die Seite neu zu laden.
+          Dadurch bleibt der React-State erhalten und der Wechsel ist sofort da. */}
       <Link to='/'>
         <h1>Webb Gallery</h1>
         <p>
@@ -15,6 +17,8 @@ export default function Header() {
       <nav>
         <ul>
           <li>
+            {/* <NavLink> ist ein <Link>, der weiß, ob er gerade aktiv ist:
+                Passt "to" zur aktuellen URL, bekommt er automatisch die Klasse "active" (zum Stylen). */}
             <NavLink className='navlink' to='/'>
               Home
             </NavLink>

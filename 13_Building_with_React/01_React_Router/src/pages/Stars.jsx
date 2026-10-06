@@ -15,6 +15,8 @@ const Stars = () => {
   //   fetchData();
   // }, []);
 
+  // Statt selbst zu fetchen, holen wir die Daten aus dem Eltern-Layout:
+  // useOutletContext() liefert, was MainLayout an <Outlet context={...} /> übergeben hat.
   const stars = useOutletContext();
 
   if (!stars) return <p className='message--loading'>Loading...</p>;

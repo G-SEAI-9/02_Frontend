@@ -4,7 +4,9 @@ const Card = ({ star }) => {
   const { url, heading, description, slug } = star;
 
   return (
-    <Link to={`star/${slug}`}>
+    // Die ganze Karte ist ein Link zur Detailseite, z. B. "/star/sirius".
+    // Der slug füllt den Platzhalter ":slug" aus der Route in App.jsx.
+    <Link to={`/star/${slug}`}>
       <article className='star'>
         <div>
           <img src={url} alt={heading} className='star__img' />
