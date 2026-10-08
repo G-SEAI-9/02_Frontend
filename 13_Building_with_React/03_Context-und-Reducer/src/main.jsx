@@ -8,6 +8,7 @@ import ThemeContextProvider from './context/ThemeContext.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      {/* Der ThemeContext umschließt die ganze App, damit jede Komponente das Theme lesen kann. */}
       <ThemeContextProvider>
         <App />
       </ThemeContextProvider>
