@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className='footer sm:footer-horizontal bg-neutral text-neutral-content p-10'>
-      <nav>
+      <nav className='mx-auto'>
         <h2 className='footer-title'>Services</h2>
         <a href='/destinations' className='link link-hover'>
           Destinations

@@ -2,7 +2,10 @@
 @plugin "daisyui" {
   themes:
     halloween --default,
-    cyberpunk;
+    cyberpunk,
+    retro,
+    dim,
+    abyss;
 }
 
 /* a.active {

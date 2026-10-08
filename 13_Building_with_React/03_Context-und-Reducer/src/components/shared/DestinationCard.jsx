@@ -1,8 +1,17 @@
 import { Link } from 'react-router';
+import { useTheme } from '../../context/ThemeContext.jsx';
 
 const DestinationCard = ({ title, image, text, slug }) => {
+  // const value = useContext(ThemeContext);
+  // const theme = value.theme;
+  // const { theme } = useContext(ThemeContext);
+
+  const { theme } = useTheme();
+
+  console.log(theme);
+
   return (
-    <div className='card bg-base-100 shadow-md'>
+    <div data-theme={theme} className='card bg-base-100 shadow-md'>
       <figure>
         <img src={image} alt={title} className='h-48 w-full object-cover' />
       </figure>
