@@ -1,10 +1,15 @@
+import { useTodos } from '../context/TodoContext.jsx';
+import { useTodoReducer } from '../context/TodoReducerContex.jsx';
 import ToDoItem from './ToDoItem';
 
-const ToDoList = ({ todos, toggleTodo }) => {
+const ToDoList = () => {
+  // const { todos } = useTodos();
+  const { todos } = useTodoReducer();
+
   return (
     <ul>
-      {todos.map(todo => (
-        <ToDoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
+      {todos.map((todo) => (
+        <ToDoItem key={todo.id} todo={todo} />
       ))}
     </ul>
   );

@@ -1,4 +1,10 @@
-const FilterComponent = ({ setFilter }) => {
+import { useTodos } from '../context/TodoContext.jsx';
+import { useTodoReducer } from '../context/TodoReducerContex.jsx';
+
+const FilterComponent = () => {
+  // const { setFilter } = useTodos();
+  const { setFilter } = useTodoReducer();
+
   const setFilterInView = (filter) => {
     setFilter(filter);
   };

@@ -1,16 +1,25 @@
 import { useState } from 'react';
+import { useTodos } from '../context/TodoContext.jsx';
+import { useTodoReducer } from '../context/TodoReducerContex.jsx';
 
-const AddToDo = ({ setTodos }) => {
+const AddToDo = () => {
+  // const { setTodos } = useTodos();
+
+  const { addTodo } = useTodoReducer();
+
   const [newTodo, setNewTodo] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newTodo.trim()) return alert('Please enter a to-do item');
-    setTodos((prevTodos) => {
-      const toDos = [{ id: Date.now(), text: newTodo, completed: false }, ...prevTodos];
-      // localStorage.setItem('todos', JSON.stringify(toDos));
-      return toDos;
-    });
+    // setTodos((prevTodos) => {
+    //   const toDos = [{ id: Date.now(), text: newTodo, completed: false }, ...prevTodos];
+    //   // localStorage.setItem('todos', JSON.stringify(toDos));
+    //   return toDos;
+    // });
+    // setNewTodo('');
+
+    addTodo(newTodo);
     setNewTodo('');
   };
 
