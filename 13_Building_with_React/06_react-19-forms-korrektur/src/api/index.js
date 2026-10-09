@@ -61,8 +61,9 @@ export const sendContactForm = async ({ firstName, lastName, email, message }) =
 export const searchProducts = async (search = {}) => {
   const { data, error } = productSearchSchema.safeParse(search);
   if (error) return { error: z.prettifyError(error), products: [] };
+
   const response = await fetch('https://fakestoreapi.com/products');
-  if (!response.ok) return { error: 'Something went wrong while fetching products', products: [] };
+  if (!response.ok) return { error: 'Something went wrong while fetching products', products: [], search: data };
   const products = await response.json();
   // This API cannot filter by itself, so we load all products and filter them here
   const filteredProducts = products.filter((product) => {

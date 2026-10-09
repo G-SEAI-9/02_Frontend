@@ -1,11 +1,19 @@
 import { ErrorBoundary } from 'react-error-boundary';
+import { toast } from 'react-toastify';
+import { sendContactForm } from '../api/index.js';
 import { ErrorFallback, Instructions } from '../components';
+import SubmitBtn from '../components/SubmitBtn.jsx';
+
+async function contactAction(formData) {
+  const result = await sendContactForm(Object.fromEntries(formData));
+  toast.success(result);
+}
 
 const Contact = () => {
   return (
     <div className='flex flex-col items-center'>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <form>
+        <form action={contactAction}>
           <fieldset className='fieldset bg-base-200 border-base-300 rounded-box w-lg border p-4'>
             <legend className='fieldset-legend'>Contact Us</legend>
             <label className='label' htmlFor='firstName'>
@@ -24,9 +32,7 @@ const Contact = () => {
               Message
             </label>
             <textarea className='textarea w-full' name='message' placeholder='Your message' rows={4} id='message' />
-            <button className='btn btn-neutral mt-4' type='submit'>
-              Send
-            </button>
+            <SubmitBtn>Send</SubmitBtn>
           </fieldset>
         </form>
       </ErrorBoundary>
