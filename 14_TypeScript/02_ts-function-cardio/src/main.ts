@@ -1,5 +1,6 @@
 // TYPESCRIPT FUNCTION CARDIO
 //1
+
 function multiply(a: number, b: number) {
   return a * b;
 }
@@ -9,7 +10,9 @@ multiply(2, 5); // 10
 multiply('2', true);
 
 //2
-function greet(person) {
+// function greet(person = "Steve") {
+
+function greet(person: string) {
   return `Hello ${person}`;
 }
 
@@ -24,7 +27,13 @@ const user = {
   email: 'karl@example.com',
 };
 
-type User = any;
+type User = typeof user;
+
+// type User = {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+// };
 
 function getWelcomeMessage(user: User) {
   return `Welcome, ${user.firstName} ${user.lastName}`;
@@ -35,8 +44,8 @@ getWelcomeMessage(user); // "Welcome, Karl Karlsen"
 getWelcomeMessage({ firstName: 'Alan' });
 
 //4
-function isEven(num: any): any {
-  return num % 2 == 0;
+function isEven(num: number): boolean {
+  return num % 2 === 0;
 }
 
 isEven(4); //true
@@ -49,7 +58,7 @@ const result: string = isEven(5);
 console.log(result);
 
 //5
-function getFirstElementofStringArray(arr) {
+function getFirstElementofStringArray(arr: string[]) {
   return arr[0];
 }
 
@@ -58,7 +67,7 @@ getFirstElementofStringArray(['a', 'b', 'c', 'd']); //"a"
 getFirstElementofStringArray([1, 2, 3, 4]);
 
 //6
-function sumOfNumbers(number) {
+function sumOfNumbers(number: number[]): number {
   return number.reduce((sum, current) => sum + current, 0);
 }
 
@@ -67,7 +76,13 @@ sumOfNumbers([1, 2, 3, 4]); // 10
 sumOfNumbers(['1', '2', '3']);
 
 //7
-function getProductInfo(product: any) {
+
+type StringOrNumberArr = (string | number)[];
+const a: StringOrNumberArr = [23, 23, 65, 43, 'a', 43];
+
+type Product = ['Laptop' | 'Keyboard' | 'Mouse', number];
+
+function getProductInfo(product: Product) {
   return `Product: ${product[0]}, Price: $${product[1]}`;
 }
 
@@ -78,20 +93,22 @@ getProductInfo([1200, 'Laptop']);
 getProductInfo(['Keyboard']);
 
 //8
-function formatUserInput(input: any) {
+function formatUserInput(input: string | number) {
   return `User said ${input}`;
 }
 
 formatUserInput('hello'); // "User said hello"
-formatUserInput(12434); // "User said 1243"
-//@ts-expect-error
+formatUserInput(12434); // "User said 12434"
+// @ts-expect-error
+formatUserInput(true);
+// @ts-expect-error
 let output: number = formatUserInput(400);
 
 //don't remove this line - workaround for 'ts-expect-error bug'
 console.log(output);
 
 // 9
-type UserID = any;
+type UserID = number;
 
 function fetchUserData(id: UserID) {
   return { id, name: `User ${id}` };
@@ -102,15 +119,25 @@ fetchUserData(123); // id: 123, name: "User 123"
 fetchUserData('aa1123b');
 
 // 10
-function getWidth(rectangle) {
+
+type Rectangle = {
+  base: number;
+  height: number;
+};
+
+function getArea(rectangle: Rectangle) {
   return rectangle.base * rectangle.height;
 }
-getWidth({ base: 2, height: 1 });
+getArea({ base: 2, height: 1 });
 //@ts-expect-error
-getWidth({ base: 100, height: 50, pi: 220, e: 120 });
+getArea({ base: 100, height: 50, pi: 220, e: 120 });
 
 //11
-type Response = any;
+type HTTPOK = 200;
+type HTTPNotFound = 404;
+type HTTPServerError = 500;
+type HTTPStatusCode = HTTPOK | HTTPNotFound | HTTPServerError;
+type Response = [HTTPStatusCode, string];
 
 function handleResponse(response: Response) {
   return `Status: ${response[0]}, Body: "${response[1]}"`;
@@ -118,13 +145,14 @@ function handleResponse(response: Response) {
 
 handleResponse([200, 'OK']);
 handleResponse([404, 'Not Found']);
+// handleResponse([HTTPNotFound, 'Not Found']);
 //@ts-expect-error
 handleResponse([500]);
 //@ts-expect-error
 handleResponse('I am a teapot');
 
 //12
-function logValue(input: any) {
+function logValue(input: string | number | boolean) {
   console.log(input);
 }
 
@@ -138,9 +166,9 @@ logValue({ value: 'no' });
 //13
 type ApiData = string;
 
-async function fetchData(url: any) {
+async function fetchData(url: string) {
   return `Data from ${url}`;
 }
 
 // How do we need to change this line to make this work?
-const data: ApiData = fetchData('/api/user');
+const data: ApiData = await fetchData('/api/user');
