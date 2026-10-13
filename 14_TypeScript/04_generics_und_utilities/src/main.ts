@@ -61,3 +61,41 @@ const myGenericThingTwo: MyGenericType = {
 };
 
 // Utility
+
+type Todo = {
+  title: string | { message: string };
+  description: string;
+  completed: boolean;
+};
+
+type TodoPreview = Pick<Todo, 'title' | 'completed'>;
+
+type IncompleteTodo = Partial<Todo>;
+
+const todo1: IncompleteTodo = {
+  title: 'Carpe Diem',
+};
+
+type IncompleteTodoPreview = Partial<Pick<Todo, 'title' | 'completed'>>;
+
+type ReadonlyTodo = {
+  readonly title: string;
+  description: string;
+  completed: boolean;
+};
+
+const todoRO: ReadonlyTodo = {
+  title: 'Carpe Diem',
+  description: 'Pflücke den Tag',
+  completed: false,
+};
+
+todoRO.completed = true;
+todoRO.title = 'Aleus iacta est';
+
+type ReadOnlyTodo = Readonly<Todo>;
+
+function renderTodo(todo: Readonly<Todo>) {
+  // todo.completed = false
+  console.log(todo.title);
+}
