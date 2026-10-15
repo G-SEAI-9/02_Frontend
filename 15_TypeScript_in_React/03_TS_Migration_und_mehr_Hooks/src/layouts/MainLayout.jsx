@@ -1,0 +1,31 @@
+import { useEffect, useState } from 'react';
+import { Outlet } from 'react-router';
+import { Footer, NavBar } from '../components/index.js';
+import BookingContextProvider from '../context/BookingContext.jsx';
+
+const MainLayout = () => {
+  const [destinations, setDestinations] = useState(null);
+
+  useEffect(() => {
+    fetch('/travel.json')
+      .then((res) => res.json())
+      .then((data) => setDestinations(data));
+  }, []);
+
+  return (
+    <div className='flex flex-col min-h-screen'>
+      {/* Nur Komponenten INNERHALB des Providers können useBooking() nutzen.
+          Er umschließt NavBar und Seiten, weil beide die Buchungen brauchen – den Footer nicht. */}
+      <BookingContextProvider>
+        <NavBar />
+        <main className='container mx-auto px-4 py-8 mb-auto'>
+          {/* TODO: Hier soll je nach URL die passende Seite angezeigt werden – nicht immer nur Home */}
+          {destinations ? <Outlet context={destinations} /> : <span className='loading loading-dots loading-xl'></span>}
+        </main>
+      </BookingContextProvider>
+      <Footer />
+    </div>
+  );
+};
+
+export default MainLayout;
