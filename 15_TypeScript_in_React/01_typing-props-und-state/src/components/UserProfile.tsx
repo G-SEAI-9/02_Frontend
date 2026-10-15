@@ -1,7 +1,11 @@
+// "import type" holt nur den Typ, keinen Laufzeit-Code.
 import type { User } from '../types';
 
+// Pick<Typ, 'a' | 'b'> baut einen neuen Typ aus ausgewählten Feldern eines bestehenden Typs.
+// So bleiben die Props automatisch synchron, wenn sich User ändert.
 type UserProfileProps = Pick<User, 'username' | 'img' | 'status' | 'info'>;
 
+// Variante 1: Props-Typ von Hand schreiben – gleiche Wirkung, aber doppelt gepflegt.
 // type UserProfileProps = {
 //   username: string;
 //   img?: string;
@@ -9,6 +13,7 @@ type UserProfileProps = Pick<User, 'username' | 'img' | 'status' | 'info'>;
 //   status?: 'active' | 'paused' | 'inactive';
 // };
 
+// Variante 2: Props als ein Objekt "props" annehmen und mit props.xyz darauf zugreifen.
 // export default function UserProfile(props: UserProfileProps) {
 //   return (
 //     <article>
@@ -20,6 +25,9 @@ type UserProfileProps = Pick<User, 'username' | 'img' | 'status' | 'info'>;
 //   );
 // }
 
+// Gängigste Schreibweise: Props direkt in der Parameterliste destrukturieren
+// und das ganze Objekt mit ": UserProfileProps" typisieren.
+// Fehlt beim Aufruf ein Pflicht-Prop oder hat er den falschen Typ, meldet es TypeScript sofort.
 export default function UserProfile({ username, info, img, status }: UserProfileProps) {
   return (
     <article>
@@ -31,6 +39,8 @@ export default function UserProfile({ username, info, img, status }: UserProfile
   );
 }
 
+// Variante 3: Typ inline direkt nach der Destrukturierung – funktioniert,
+// wird bei vielen Props aber schnell unübersichtlich.
 // export default function UserProfile({
 //   username,
 //   info,
@@ -51,5 +61,3 @@ export default function UserProfile({ username, info, img, status }: UserProfile
 //     </article>
 //   );
 // }
-
-function tsFunction(para: string) {}
