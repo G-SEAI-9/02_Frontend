@@ -14,12 +14,9 @@ const MainLayout = () => {
 
   return (
     <div className='flex flex-col min-h-screen'>
-      {/* Nur Komponenten INNERHALB des Providers können useBooking() nutzen.
-          Er umschließt NavBar und Seiten, weil beide die Buchungen brauchen – den Footer nicht. */}
       <BookingContextProvider>
         <NavBar />
         <main className='container mx-auto px-4 py-8 mb-auto'>
-          {/* TODO: Hier soll je nach URL die passende Seite angezeigt werden – nicht immer nur Home */}
           {destinations ? <Outlet context={destinations} /> : <span className='loading loading-dots loading-xl'></span>}
         </main>
       </BookingContextProvider>

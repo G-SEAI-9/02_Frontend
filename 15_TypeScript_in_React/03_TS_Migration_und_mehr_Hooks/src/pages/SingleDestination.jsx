@@ -3,8 +3,6 @@ import { useOutletContext, useParams } from 'react-router';
 const SingleDestination = () => {
   const destinations = useOutletContext();
 
-  // TODO: Den slug aus der URL lesen, z.B. /destinations/berlin -> 'berlin'
-  // const slug = 'berlin';
   const { slug } = useParams();
 
   const destination = destinations.find((d) => d.slug === slug);

@@ -7,7 +7,6 @@ const Home = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // TODO: nach dem Absenden zur Seite /destinations wechseln
     const query = e.target.elements['destination'].value.trim().toLowerCase();
 
     navigate(`/destinations/${query}`);
