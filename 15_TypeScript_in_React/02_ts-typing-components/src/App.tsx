@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Alert from './components/Alert';
 import Avatar from './components/Avatar';
 import Counter from './components/Counter';
@@ -9,16 +10,28 @@ import Toggle from './components/Toggle';
 import Container from './layouts/Container';
 
 const App = () => {
+  const [isOn, setIsOn] = useState(false);
+
+  const onToggle = () => {
+    setIsOn((o) => !o);
+  };
+
   return (
     <Container style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <Greeting name={123} />
-      <Counter initialCount='0' />
-      <Status status='idle' />
-      <ProfileCard user={{ name: 'Ada' }} />
-      <Alert message={false} type='info' />
-      <ProductList products={[{ id: 1, title: 'Book' }, { title: 'Pen' }]} />
-      <Toggle isOn='yes' onToggle={'not a function'} />
-      <Avatar url={1234} altText={false} />
+      <Greeting name={'Michael'} />
+      <Greeting />
+      <Counter initialCount={0} />
+      <Status status='success' />
+      <ProfileCard user={{ name: 'Ada', age: 36 }} />
+      <Alert message={'Alles ist kaputt'} type='error' />
+      <ProductList
+        products={[
+          { id: 1, title: 'Book' },
+          { id: 2, title: 'Pen' },
+        ]}
+      />
+      <Toggle isOn={isOn} onToggle={onToggle} setIsOn={setIsOn} />
+      <Avatar url={'https://tse3.mm.bing.net/th/id/OIP.5Mfqcem84OfRFXcTOm8LwwHaJQ?r=0&pid=Api'} altText={'Ein Pirat'} />
     </Container>
   );
 };
