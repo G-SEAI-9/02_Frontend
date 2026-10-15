@@ -1,3 +1,4 @@
+import Button from './components/Button';
 import UserList from './components/UserList';
 import UserProfile from './components/UserProfile';
 import type { User } from './types';
@@ -20,6 +21,30 @@ function App() {
       <UserProfile key={12} username={user.username} img={user.img} info={user.info} status={user.status} />
       {/* Typisierung von Hooks */}
       <UserList />
+
+      <Button
+        type='button'
+        onClick={() => {
+          alert('Button geklickt!');
+        }}
+        className='btn btn-primary'
+        style={{
+          backgroundColor: 'rebeccapurple',
+        }}
+        username={'Guybrush'}
+      >
+        <span>Click My Button!</span>
+      </Button>
+
+      <button
+        className='btn btn-primary'
+        style={{
+          backgroundColor: 'rebeccapurple',
+        }}
+        type='button'
+      >
+        Normaler Btn
+      </button>
     </>
   );
 }
