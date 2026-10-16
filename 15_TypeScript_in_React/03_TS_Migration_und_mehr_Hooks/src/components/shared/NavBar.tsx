@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router';
-import { useBooking } from '../../context/BookingContext.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { useBooking } from '../../context/BookingContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const NavBar = () => {
   const { changeTheme, theme, ALLOWED_THEMES } = useTheme();
@@ -25,7 +25,9 @@ const NavBar = () => {
           <option value='forest'>Forest</option> */}
 
           {ALLOWED_THEMES.map((th) => (
-            <option value={th}>{th}</option>
+            <option key={th} value={th}>
+              {th}
+            </option>
           ))}
         </select>
       </div>

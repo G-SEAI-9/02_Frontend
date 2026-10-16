@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
-import { Footer, NavBar } from '../components/index.js';
-import BookingContextProvider from '../context/BookingContext.jsx';
+import { Footer, NavBar } from '../components';
+import BookingContextProvider from '../context/BookingContext';
+import type { Destination } from '../types';
 
 const MainLayout = () => {
-  const [destinations, setDestinations] = useState(null);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {
     fetch('/travel.json')
       .then((res) => res.json())
-      .then((data) => setDestinations(data));
+      .then((data: Destination[]) => setDestinations(data));
   }, []);
 
   return (

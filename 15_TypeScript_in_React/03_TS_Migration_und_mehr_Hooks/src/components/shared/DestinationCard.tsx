@@ -1,8 +1,19 @@
 import { Link } from 'react-router';
-import { useBooking } from '../../context/BookingContext.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { useBooking } from '../../context/BookingContext';
+import { useTheme } from '../../context/ThemeContext';
+import type { Destination } from '../../types';
 
-const DestinationCard = ({ title, image, text, slug }) => {
+// type DestinationCardProps = {
+//   title: string;
+//   image: string;
+//   text: string;
+//   slug: string;
+// };
+
+type DestinationCardProps = Pick<Destination, 'title' | 'image' | 'description' | 'slug'>;
+
+const DestinationCard = ({ title, image, description, slug }: DestinationCardProps) => {
+  // const { theme } = useTheme()!;
   const { theme } = useTheme();
   const { bookedDestinations, addDestination, removeDestination } = useBooking();
 
@@ -17,7 +28,7 @@ const DestinationCard = ({ title, image, text, slug }) => {
         <Link to={`/destinations/${slug}`}>
           <h2 className='card-title text-lg font-semibold hover:text-primary'>{title}</h2>
         </Link>
-        <p>{text}</p>
+        <p>{description}</p>
         <div className='card-actions justify-end'>
           <button
             type='button'

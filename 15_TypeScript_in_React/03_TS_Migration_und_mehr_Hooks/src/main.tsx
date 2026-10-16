@@ -2,10 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { BrowserRouter } from 'react-router';
-import App from './App.jsx';
-import ThemeContextProvider from './context/ThemeContext.jsx';
+import App from './App';
+import ThemeContextProvider from './context/ThemeContext';
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeContextProvider>

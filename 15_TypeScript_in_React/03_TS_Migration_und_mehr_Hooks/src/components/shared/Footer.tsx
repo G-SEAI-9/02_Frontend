@@ -18,13 +18,13 @@ const Footer = () => {
       </nav>
       <nav>
         <h2 className='footer-title'>Legal</h2>
-        <a className='link link-hover' href='#'>
+        <a className='link link-hover' href='#top'>
           Terms of use
         </a>
-        <a className='link link-hover' href='#'>
+        <a className='link link-hover' href='#top'>
           Privacy policy
         </a>
-        <a className='link link-hover' href='#'>
+        <a className='link link-hover' href='#top'>
           Cookie policy
         </a>
       </nav>

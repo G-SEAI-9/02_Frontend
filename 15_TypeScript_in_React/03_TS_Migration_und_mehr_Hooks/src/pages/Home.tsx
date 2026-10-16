@@ -1,13 +1,16 @@
 import { useNavigate, useOutletContext } from 'react-router';
 import { DestinationCard } from '../components';
+import type { Destination } from '../types';
 
 const Home = () => {
-  const destinations = useOutletContext();
+  const destinations = useOutletContext<Destination[]>();
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const query = e.target.elements['destination'].value.trim().toLowerCase();
+    // const query = e.target.elements['destination'].value.trim().toLowerCase();
+    const formData = new FormData(e.currentTarget);
+    const query = String(formData.get('destination')).trim().toLowerCase();
 
     navigate(`/destinations/${query}`);
   };
@@ -18,6 +21,12 @@ const Home = () => {
         <h1 className='text-4xl font-bold text-primary'>Find Your Next Student Adventure</h1>
         <form
           onSubmit={handleSearch}
+          // onSubmit={(e) => {
+          //   e.preventDefault();
+          //   const query = e.target.elements['destination'].value.trim().toLowerCase();
+
+          //   navigate(`/destinations/${query}`);
+          // }}
           className='md:join w-full flex flex-col md:flex-row gap-2 md:gap-0 justify-center px-4'
         >
           <input name='origin' type='text' placeholder='Origin' className='w-full input input-bordered join-item' />
@@ -59,7 +68,7 @@ const Home = () => {
               key={destination.slug}
               title={destination.title}
               image={destination.image}
-              text={destination.description}
+              description={destination.description}
               slug={destination.slug}
             />
           ))}
