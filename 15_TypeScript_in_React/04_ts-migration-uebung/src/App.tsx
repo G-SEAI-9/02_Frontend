@@ -3,17 +3,25 @@ import AddToDo from './components/AddToDo';
 import FilterComponent from './components/FilterComponent';
 import ToDoList from './components/ToDoList';
 
+import type { Filter, Todo } from './types';
+
 const App = () => {
-  const [todos, setTodos] = useState(() =>
-    localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [],
-  );
-  const [filter, setFilter] = useState('all');
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    const saved = localStorage.getItem('todos');
+    if (saved) {
+      const todos: Todo[] = JSON.parse(saved);
+      return todos;
+    }
+    return [];
+  });
+
+  const [filter, setFilter] = useState<Filter>('all');
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const toggleTodo = (id) => {
+  const toggleTodo = (id: number) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) => {
         if (todo.id === id) {

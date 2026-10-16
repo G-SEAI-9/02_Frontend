@@ -1,5 +1,11 @@
-const FilterComponent = ({ setFilter }) => {
-  const setFilterInView = (filter) => {
+import type { Filter } from '../types';
+
+type FilterComponentProps = {
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
+};
+
+const FilterComponent = ({ setFilter }: FilterComponentProps) => {
+  const setFilterInView = (filter: Filter) => {
     setFilter(filter);
   };
 

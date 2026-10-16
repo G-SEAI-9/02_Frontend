@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import type { Todo } from '../types';
 
-const AddToDo = ({ setTodos }) => {
+type AddToDoProps = {
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+};
+
+const AddToDo = ({ setTodos }: AddToDoProps) => {
   const [newTodo, setNewTodo] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!newTodo.trim()) return alert('Please enter a to-do item');
     setTodos((prevTodos) => {
