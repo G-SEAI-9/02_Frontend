@@ -16,6 +16,7 @@ const NavBar = () => {
           </Link>
         </div>
 
+        {/* e.target.value ist immer ein string – deshalb nimmt changeTheme einen string und prüft ihn selbst. */}
         <select className='select capitalize' defaultValue={theme} onChange={(e) => changeTheme(e.target.value)}>
           {/* <option value='halloween'>Halloween</option>
           <option value='retro'>Retro</option>

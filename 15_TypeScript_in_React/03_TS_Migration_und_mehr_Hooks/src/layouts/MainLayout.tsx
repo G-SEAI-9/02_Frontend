@@ -5,6 +5,7 @@ import BookingContextProvider from '../context/BookingContext';
 import type { Destination } from '../types';
 
 const MainLayout = () => {
+  // Ohne <Destination[]> würde TS aus dem leeren Array den Typ never[] ableiten – dort passt nichts hinein.
   const [destinations, setDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {

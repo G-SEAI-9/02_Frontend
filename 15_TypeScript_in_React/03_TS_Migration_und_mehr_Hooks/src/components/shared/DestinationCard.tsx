@@ -3,6 +3,7 @@ import { useBooking } from '../../context/BookingContext';
 import { useTheme } from '../../context/ThemeContext';
 import type { Destination } from '../../types';
 
+// Variante 1: Props-Typ von Hand schreiben – jedes Feld einzeln.
 // type DestinationCardProps = {
 //   title: string;
 //   image: string;
@@ -10,11 +11,17 @@ import type { Destination } from '../../types';
 //   slug: string;
 // };
 
+// Variante 2: Pick<Typ, 'feld' | 'feld'> nimmt nur die genannten Felder aus Destination.
+// Vorteil: Ändert sich Destination, passt sich der Props-Typ automatisch an.
 type DestinationCardProps = Pick<Destination, 'title' | 'image' | 'description' | 'slug'>;
 
+// Der Props-Typ steht hinter dem destrukturierten Objekt, nicht hinter jedem einzelnen Namen.
 const DestinationCard = ({ title, image, description, slug }: DestinationCardProps) => {
+  // Mit '!' würden wir TS nur versprechen, dass der Wert nicht null ist – ohne echte Prüfung.
+  // Mit der Anpassung prüft useTheme() nun selbst auf null.
   // const { theme } = useTheme()!;
   const { theme } = useTheme();
+  // Dank der Typen im Context kennt TS hier alle Felder und bietet Autocomplete an.
   const { bookedDestinations, addDestination, removeDestination } = useBooking();
 
   const isBooked = bookedDestinations.includes(slug);

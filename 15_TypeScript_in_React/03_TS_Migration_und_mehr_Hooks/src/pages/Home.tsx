@@ -3,9 +3,12 @@ import { DestinationCard } from '../components';
 import type { Destination } from '../types';
 
 const Home = () => {
+  // Der Outlet-Context ist für TS unbekannt, deshalb sagen wir in <...>, was das Layout hineinlegt.
   const destinations = useOutletContext<Destination[]>();
   const navigate = useNavigate();
 
+  // Wir typisieren die ganze Funktion als Submit-Handler für ein <form>.
+  // Dadurch kennt TS den Typ von 'e', ohne dass wir ihn hinschreiben müssen.
   const handleSearch: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     // const query = e.target.elements['destination'].value.trim().toLowerCase();
