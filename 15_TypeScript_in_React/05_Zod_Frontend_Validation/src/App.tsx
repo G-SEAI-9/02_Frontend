@@ -1,41 +1,59 @@
 import { useActionState } from 'react';
-import { sleep, validate } from './utils/index.js';
+import { FormSchema, sleep } from './utils/index';
+import z from 'zod';
 
 const initialState = {
   input: {
     name: '',
     email: '',
+    number: '',
     message: '',
   },
   errors: {
     name: '',
     email: '',
+    number: '',
     message: '',
   },
   success: false,
 };
 
-async function action(prevState, formData) {
-  const data = {
-    name: String(formData.get('name') ?? ''),
-    email: String(formData.get('email') ?? ''),
-    message: String(formData.get('message') ?? ''),
-  };
+type FormState = typeof initialState;
 
-  const validationErrors = validate(data);
-  if (Object.keys(validationErrors).length !== 0) {
+async function action(_prevState: FormState, formData: FormData) {
+  // const data = {
+  //   name: String(formData.get('name') ?? ''),
+  //   email: String(formData.get('email') ?? ''),
+  //   message: String(formData.get('message') ?? ''),
+  // };
+
+  const zodResponse = FormSchema.safeParse(Object.fromEntries(formData));
+
+  const { success, data: parsedData, error: validationErrors } = zodResponse;
+
+  if (success) {
+    // Netzwerkrequest
+    // fetch("/api/blabla", {
+    //   method: "POST",
+    //   body: JSON.stringify(parsedData)
+    // })
+
     return {
-      input: data,
-      errors: { ...prevState.errors, ...validationErrors },
+      ...initialState,
+      success: true,
+    };
+  } else {
+    const errorMessages = z.flattenError(validationErrors).fieldErrors;
+
+    return {
+      errors: {
+        ...initialState.errors,
+        ...errorMessages,
+      },
+      input: parsedData,
       success: false,
     };
   }
-  await sleep(1000); // simuliert fetch()
-
-  return {
-    ...initialState,
-    success: true,
-  };
 }
 
 export default function App() {
@@ -72,6 +90,20 @@ export default function App() {
               defaultValue={state?.input?.email}
             />
             {state?.errors?.email && <p className='mt-1 text-sm text-red-600'>{state.errors.email}</p>}
+          </div>
+          <div>
+            <label className='block text-sm font-medium text-gray-200' htmlFor='number'>
+              Number
+            </label>
+            <input
+              name='number'
+              type='number'
+              id='number'
+              className='mt-1 w-full rounded border border-gray-300 px-3 py-2'
+              placeholder='0-123'
+              defaultValue={state?.input?.number}
+            />
+            {state?.errors?.number && <p className='mt-1 text-sm text-red-600'>{state.errors.number[0]}</p>}
           </div>
           <div>
             <label className='block text-sm font-medium text-gray-700' htmlFor='message'>
