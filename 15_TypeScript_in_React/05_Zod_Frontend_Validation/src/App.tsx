@@ -2,6 +2,7 @@ import { useActionState } from 'react';
 import { FormSchema, sleep } from './utils/index';
 import z from 'zod';
 
+// Der Zustand des Formulars: die eingegebenen Werte, die Fehlermeldungen pro Feld und ob das Absenden geklappt hat.
 const initialState = {
   input: {
     name: '',
@@ -10,10 +11,10 @@ const initialState = {
     message: '',
   },
   errors: {
-    name: '',
-    email: '',
-    number: '',
-    message: '',
+    name: [''],
+    email: [''],
+    number: [''],
+    message: [''],
   },
   success: false,
 };
@@ -21,17 +22,21 @@ const initialState = {
 type FormState = typeof initialState;
 
 async function action(_prevState: FormState, formData: FormData) {
-  // const data = {
-  //   name: String(formData.get('name') ?? ''),
-  //   email: String(formData.get('email') ?? ''),
-  //   message: String(formData.get('message') ?? ''),
-  // };
+  const data = {
+    name: String(formData.get('name') ?? ''),
+    email: String(formData.get('email') ?? ''),
+    number: String(formData.get('number') ?? ''),
+    message: String(formData.get('message') ?? ''),
+  };
 
+  // Object.fromEntries macht aus FormData ein normales Objekt: { name: '...', email: '...', ... }.
+  // safeParse prüft es gegen unser Schema und ersetzt das manuelle Auslesen von oben.
   const zodResponse = FormSchema.safeParse(Object.fromEntries(formData));
 
   const { success, data: parsedData, error: validationErrors } = zodResponse;
 
   if (success) {
+    // Hier ist parsedData geprüft und hat den Typ FormType, kann also sicher verschickt werden.
     // Netzwerkrequest
     // fetch("/api/blabla", {
     //   method: "POST",
@@ -43,20 +48,25 @@ async function action(_prevState: FormState, formData: FormData) {
       success: true,
     };
   } else {
+    // flattenError sortiert die Fehler nach Feldern: { name: ['Name is required'], email: [...] }.
+    // Achtung: Jedes Feld enthält ein Array von Meldungen, weil ein Feld mehrere Regeln verletzen kann.
     const errorMessages = z.flattenError(validationErrors).fieldErrors;
 
     return {
       errors: {
+        // Erst alle Felder leer setzen, dann die gefundenen Fehler darüberschreiben
         ...initialState.errors,
         ...errorMessages,
       },
-      input: parsedData,
+
+      input: data, // die eingegebenen Daten müssen zurück - etwas umständlich
       success: false,
     };
   }
 }
 
 export default function App() {
+  // useActionState ruft beim Absenden unsere action auf und speichert deren Rückgabe als neuen state.
   const [state, formAction, isPending] = useActionState(action, initialState);
 
   return (
@@ -76,7 +86,7 @@ export default function App() {
               placeholder='Leia Organa'
               defaultValue={state?.input?.name}
             />
-            {state?.errors?.name && <p className='mt-1 text-sm text-red-600'>{state.errors.name}</p>}
+            {state?.errors?.name && <p className='mt-1 text-sm text-red-600'>{state.errors.name.join('  ')}</p>}
           </div>
           <div>
             <label className='block text-sm font-medium text-gray-700' htmlFor='email'>
@@ -89,7 +99,7 @@ export default function App() {
               placeholder='leia@rebellion.org'
               defaultValue={state?.input?.email}
             />
-            {state?.errors?.email && <p className='mt-1 text-sm text-red-600'>{state.errors.email}</p>}
+            {state?.errors?.email && <p className='mt-1 text-sm text-red-600'>{state.errors.email.join('  ')}</p>}
           </div>
           <div>
             <label className='block text-sm font-medium text-gray-200' htmlFor='number'>
@@ -103,7 +113,8 @@ export default function App() {
               placeholder='0-123'
               defaultValue={state?.input?.number}
             />
-            {state?.errors?.number && <p className='mt-1 text-sm text-red-600'>{state.errors.number[0]}</p>}
+            {/* [0] zeigt nur die erste Meldung aus dem Fehler-Array an */}
+            {state?.errors?.number && <p className='mt-1 text-sm text-red-600'>{state.errors.number.join('  ')}</p>}
           </div>
           <div>
             <label className='block text-sm font-medium text-gray-700' htmlFor='message'>
@@ -117,7 +128,7 @@ export default function App() {
               placeholder='Tell us how we can help...'
               defaultValue={state?.input?.message}
             />
-            {state?.errors?.message && <p className='mt-1 text-sm text-red-600'>{state.errors.message}</p>}
+            {state?.errors?.message && <p className='mt-1 text-sm text-red-600'>{state.errors.message.join('  ')}</p>}
           </div>
 
           {state?.success && <p className='text-sm text-green-500'>Thanks for your Message!</p>}
