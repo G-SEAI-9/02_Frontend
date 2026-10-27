@@ -1,3 +1,7 @@
+// Moderne SQL-Bibliotheken - ORMs wie Prisma oder Drizzle
+// lassen uns die Types auch direkt aus der SQL-Tabelle ableiten.
+// Beim einfachen node postgres haben wir das leider nicht.
+
 type Book = {
   id: number;
   title: string;

@@ -1,23 +1,35 @@
-import { getAuthorsOfBook, getBookById, sql } from '@/app/lib/data';
-import { Book } from '@/app/lib/types';
+import { getAuthorsOfBook, getBookById } from '@/app/lib/data';
 import { cacheLife } from 'next/cache';
 import { notFound } from 'next/navigation';
 
+// Dynamisches Routing: Der Ordnername [id] in eckigen Klammern ist ein Platzhalter.
+// /books/1, /books/2, /books/42 ... werden alle von dieser einen Seite gerendert.
+// PageProps<'/books/[id]'> ist ein von Next.js generierter Typ, der weiß, dass es einen Parameter id gibt.
 export default async function BookDetailsPage({ params }: PageProps<'/books/[id]'>) {
   'use cache';
   cacheLife('hours');
 
+  // params ist ein Promise und muss erst mit await ausgepackt werden.
+  // Der Wert aus der URL ist immer ein String, auch wenn er wie eine Zahl aussieht.
   const { id } = await params;
 
+  // Eingaben aus der URL nie ungeprüft weitergeben: gültige ids bestehen nur aus Ziffern.
+  // Ohne diese Prüfung würde Postgres bei /books/abc einen Fehler werfen (500) statt einer 404-Seite.
+  // notFound() bricht das Rendern sofort ab und zeigt not-found.tsx an.
+  // Das wäre auch eine gute Einsatzmöglichkeit für Zod!
   if (!/^\d{1,9}$/.test(id)) notFound();
 
+  // Künstliche Verzögerung, damit wir loading.tsx sehen.
   await new Promise((res, _err) => setTimeout(res, 2000));
 
   const book = await getBookById(id);
 
+  // Gültige id, aber kein Buch in der Datenbank: ebenfalls 404.
+  // Nach dieser Zeile weiß TypeScript, dass book nicht mehr undefined sein kann.
   if (!book) notFound();
 
   const authors = await getAuthorsOfBook(id);
+  // Mögliche Optimierung: getBookById und getAuthorsOfBook parallel laufen lassen.
 
   return (
     <article className='flex flex-col gap-6'>
