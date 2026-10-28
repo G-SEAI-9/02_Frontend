@@ -2,7 +2,6 @@ import { getAuthorsOfBook, getBookById } from '@/app/lib/data';
 import { cacheLife, cacheTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import EditForm from './EditForm';
-import { title } from 'process';
 
 export async function generateMetadate({ params }: PageProps<'/books/[id]'>) {
   'use cache';
@@ -14,10 +13,12 @@ export async function generateMetadate({ params }: PageProps<'/books/[id]'>) {
 
   const book = !/^\d{1,9}$/.test(id) ? await getBookById(id) : undefined;
   if (!book) return { title: 'Buch nicht gefunden' };
-
+  const description = `${book.title}, erschienen im Jahr ${book.release_year}`;
   return {
     title: book.title,
-    description: `${book.title}, erschienen im Jahr ${book.release_year}`,
+    description: description,
+    alternates: { canonical: `/books/${book.id}` },
+    openGraph: { title: book.title, description, type: 'book', siteName: 'Books Demo', locale: 'de_DE' },
   };
 }
 
