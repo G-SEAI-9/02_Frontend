@@ -48,7 +48,6 @@ export default async function BookDetailsPage({ params }: PageProps<'/books/[id]
 
   return (
     <article className='flex flex-col gap-6'>
-      {/* Seit React 19 darf <title> direkt im JSX stehen, React verschiebt es automatisch in den <head>. */}
       <div>
         <h1 className='text-2xl font-bold font-display'>{book.title}</h1>
         <p className='opacity-70'>Erschienen {book.release_year ?? 'in einem unbekannten Jahr'}</p>
