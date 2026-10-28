@@ -2,6 +2,12 @@ import { cacheLife, cacheTag, CacheEntry } from 'next/cache';
 import { getBooks } from '../lib/data';
 import Link from 'next/link';
 import BookSearch from './BookSearch';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Books',
+  description: 'Alle Bücher aus der Datenbank, mit Live-Suche.',
+};
 
 export default async function BooksPage() {
   'use cache';
@@ -16,7 +22,6 @@ export default async function BooksPage() {
 
   return (
     <div className='flex flex-col gap-4'>
-      <title>Books | Demo</title>
       <h1 className='text-2xl font-bold font-display'>Books</h1>
 
       <BookSearch />

@@ -19,7 +19,10 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Meine coole Next Demo',
+  title: {
+    template: '%s | Demo',
+    default: 'Meine coole Next Demo',
+  },
   description: 'Die beste Seite, um Next.js Features zu demonstrieren!',
 };
 

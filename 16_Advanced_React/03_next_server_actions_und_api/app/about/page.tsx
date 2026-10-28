@@ -1,10 +1,14 @@
+import type { Metadata } from 'next';
 import LikesBtn from './LikesBtn';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'About der besten Next.js-Demoseite!',
+};
 
 export default function AboutPage() {
   return (
     <div className='flex flex-col gap-4'>
-      <title>About | Demo</title>
-
       <h1 className='text-2xl font-bold font-display'>About us</h1>
       <p className='max-w-prose'>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, fuga ut facere beatae cum est quae non eligendi

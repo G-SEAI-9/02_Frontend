@@ -1,12 +1,17 @@
+import type { Metadata } from 'next';
 import { cacheLife } from 'next/cache';
 import { Suspense } from 'react';
 
 type Recipe = { id: number; name: string; cuisine: string; difficulty: string; prepTimeMinutes: number };
 
+export const metadata: Metadata = {
+  title: 'Recipes',
+  description: 'Rezepte der besten Next.js-Demoseite!',
+};
+
 export default function RecipePage() {
   return (
     <div className='flex flex-col gap-4'>
-      <title>Recipes | Demo</title>
       <h1 className='text-2xl font-bold font-display'>Yummy Recipes</h1>
       <Suspense
         fallback={

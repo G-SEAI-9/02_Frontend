@@ -2,6 +2,24 @@ import { getAuthorsOfBook, getBookById } from '@/app/lib/data';
 import { cacheLife, cacheTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import EditForm from './EditForm';
+import { title } from 'process';
+
+export async function generateMetadate({ params }: PageProps<'/books/[id]'>) {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('books');
+  const { id } = await params;
+
+  if (!/^\d{1,9}$/.test(id)) notFound();
+
+  const book = !/^\d{1,9}$/.test(id) ? await getBookById(id) : undefined;
+  if (!book) return { title: 'Buch nicht gefunden' };
+
+  return {
+    title: book.title,
+    description: `${book.title}, erschienen im Jahr ${book.release_year}`,
+  };
+}
 
 export default async function BookDetailsPage({ params }: PageProps<'/books/[id]'>) {
   'use cache';
