@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import LikesBtn from './LikesBtn';
 
+// Statische Metadaten dieser Seite. Über das Template im Root-Layout wird der Titel zu 'About | Demo'.
 export const metadata: Metadata = {
   title: 'About',
   description: 'About der besten Next.js-Demoseite!',

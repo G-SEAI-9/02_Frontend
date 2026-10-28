@@ -19,13 +19,20 @@ const fraunces = Fraunces({
   subsets: ['latin'],
 });
 
+// Metadaten im Root-Layout gelten für alle Seiten. Next.js schreibt sie als <title>- und <meta>-Tags in den <head>.
+// Unterseiten können einzelne Felder mit eigenem metadata-Export überschreiben.
 export const metadata: Metadata = {
   title: {
+    // %s wird durch den Titel der Unterseite ersetzt: 'Books' wird zu 'Books | Demo'.
+    // default greift auf Seiten, die keinen eigenen Titel setzen.
     template: '%s | Demo',
     default: 'Meine coole Next Demo',
   },
+  // Die description zeigt Google oft als Text unter dem Link im Suchergebnis an.
   description: 'Die beste Seite, um Next.js Features zu demonstrieren!',
+  // Macht relative URLs in den Metadaten (z. B. canonical oder og:image) zu absoluten URLs.
   metadataBase: new URL(siteURL),
+  // Open Graph steuert die Link-Vorschau, wenn jemand die Seite in Slack, LinkedIn & Co. teilt.
   openGraph: {
     siteName: 'Books Demo',
     locale: 'de_DE',
@@ -35,6 +42,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
+    // lang='de' sagt Suchmaschinen und Screenreadern, in welcher Sprache die Seite geschrieben ist.
     <html lang='de' className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}>
       <body className='min-h-full flex flex-col font-sans'>
         <header className='navbar bg-base-200 shadow-sm'>

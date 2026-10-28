@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 
 type Recipe = { id: number; name: string; cuisine: string; difficulty: string; prepTimeMinutes: number };
 
+// Statische Metadaten dieser Seite. Über das Template im Root-Layout wird der Titel zu 'Recipes | Demo'.
 export const metadata: Metadata = {
   title: 'Recipes',
   description: 'Rezepte der besten Next.js-Demoseite!',

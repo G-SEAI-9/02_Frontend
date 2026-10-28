@@ -4,6 +4,7 @@ import Link from 'next/link';
 import BookSearch from './BookSearch';
 import { Metadata } from 'next';
 
+// Statische Metadaten dieser Seite. Über das Template im Root-Layout wird der Titel zu 'Books | Demo'.
 export const metadata: Metadata = {
   title: 'Books',
   description: 'Alle Bücher aus der Datenbank, mit Live-Suche.',
