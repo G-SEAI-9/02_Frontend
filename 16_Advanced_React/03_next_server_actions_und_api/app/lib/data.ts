@@ -1,3 +1,5 @@
+// import 'server-only' bricht den Build ab, sobald eine Client Component diese Datei importiert.
+// So landen DB-Zugang und PG_URI nie im Browser-Bundle.
 import 'server-only';
 import postgres from 'postgres';
 import { Author, Book } from './types';

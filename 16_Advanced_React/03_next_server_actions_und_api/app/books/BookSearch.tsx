@@ -1,3 +1,4 @@
+// Client Component: braucht State und reagiert auf Tastendrücke
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -13,7 +14,7 @@ export default function BookSearch() {
     // von Client Component nicht direkt die DB
     // -> fetch gegen eignen GET Endpunkt
     const controller = new AbortController();
-    // Debouncing
+    // Debouncing: erst 300 ms nach dem letzten Tastendruck anfragen, nicht bei jedem Zeichen
     const timeout = setTimeout(() => {
       fetch(`/api/books?${new URLSearchParams({ query: q })}`, {
         signal: controller.signal,
@@ -23,6 +24,9 @@ export default function BookSearch() {
         .catch((err) => err.name !== 'AbortError' && console.log(err));
     }, 300);
 
+    // Cleanup läuft vor dem nächsten Effekt: Timer stoppen und alte Anfrage abbrechen,
+    // damit keine veraltete Antwort die neueren Ergebnisse überschreibt
+    // -> Race Condition
     return () => {
       clearTimeout(timeout);
       controller.abort();

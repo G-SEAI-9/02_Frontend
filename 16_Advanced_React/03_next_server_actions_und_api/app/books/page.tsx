@@ -6,8 +6,10 @@ import BookSearch from './BookSearch';
 export default async function BooksPage() {
   'use cache';
   cacheLife('days');
+  // Cache Tag -> ein Name, um genau diesen Speicher gezielt in z.B. Updates verwerfen zu können.
   cacheTag('books');
 
+  // Künstliche Verzögerung, damit man das Skeleton aus loading.tsx sieht
   await new Promise((res, _err) => setTimeout(res, 2000));
 
   const books = await getBooks();
