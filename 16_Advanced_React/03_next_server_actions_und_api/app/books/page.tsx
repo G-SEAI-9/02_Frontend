@@ -1,6 +1,7 @@
-import { cacheLife, cacheTag } from 'next/cache';
+import { cacheLife, cacheTag, CacheEntry } from 'next/cache';
 import { getBooks } from '../lib/data';
 import Link from 'next/link';
+import BookSearch from './BookSearch';
 
 export default async function BooksPage() {
   'use cache';
@@ -15,6 +16,9 @@ export default async function BooksPage() {
     <div className='flex flex-col gap-4'>
       <title>Books | Demo</title>
       <h1 className='text-2xl font-bold font-display'>Books</h1>
+
+      <BookSearch />
+
       <ul className='list rounded-box bg-base-200'>
         {books.map((book) => (
           <Link key={book.id} href={`/books/${book.id}`}>

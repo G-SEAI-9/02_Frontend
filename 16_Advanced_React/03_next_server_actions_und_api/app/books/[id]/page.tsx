@@ -10,7 +10,7 @@ export default async function BookDetailsPage({ params }: PageProps<'/books/[id]
 
   const { id } = await params;
 
-  // if (!/^\d{1,9}$/.test(id)) notFound();
+  if (!/^\d{1,9}$/.test(id)) notFound();
 
   // await new Promise((res, _err) => setTimeout(res, 2000));
 

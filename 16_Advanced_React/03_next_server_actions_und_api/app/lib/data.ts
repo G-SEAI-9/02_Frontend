@@ -28,4 +28,14 @@ async function updateBook(id: number, title: string, release_year: number) {
   await sql`update books set title = ${title}, release_year = ${release_year} where id = ${id}`;
 }
 
-export { sql, getBooks, getBookById, getAuthorsOfBook, updateBook };
+async function searchBooks(query: string) {
+  const books = await sql<Book[]>`
+    select id, title from books
+    where title ilike ${'%' + query + '%'}
+    order by title
+    limit 5
+  `;
+  return books;
+}
+
+export { sql, getBooks, getBookById, getAuthorsOfBook, updateBook, searchBooks };
