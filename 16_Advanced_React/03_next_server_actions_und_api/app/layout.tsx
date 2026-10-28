@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
+import { siteURL } from './lib/site';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,6 +25,12 @@ export const metadata: Metadata = {
     default: 'Meine coole Next Demo',
   },
   description: 'Die beste Seite, um Next.js Features zu demonstrieren!',
+  metadataBase: new URL(siteURL),
+  openGraph: {
+    siteName: 'Books Demo',
+    locale: 'de_DE',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
