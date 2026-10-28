@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<'/books/[id]'>) {
 
   if (!/^\d{1,9}$/.test(id)) notFound();
 
-  const book = !/^\d{1,9}$/.test(id) ? await getBookById(id) : undefined;
+  const book = await getBookById(id);
   if (!book) return { title: 'Buch nicht gefunden' };
   const description = `${book.title}, erschienen im Jahr ${book.release_year}`;
   return {
@@ -49,7 +49,6 @@ export default async function BookDetailsPage({ params }: PageProps<'/books/[id]
   return (
     <article className='flex flex-col gap-6'>
       {/* Seit React 19 darf <title> direkt im JSX stehen, React verschiebt es automatisch in den <head>. */}
-      <title>{`${book.title} | Demo`}</title>
       <div>
         <h1 className='text-2xl font-bold font-display'>{book.title}</h1>
         <p className='opacity-70'>Erschienen {book.release_year ?? 'in einem unbekannten Jahr'}</p>
