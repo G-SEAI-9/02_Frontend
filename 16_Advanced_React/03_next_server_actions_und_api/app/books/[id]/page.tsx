@@ -1,16 +1,20 @@
 import { getAuthorsOfBook, getBookById } from '@/app/lib/data';
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import { notFound } from 'next/navigation';
+import EditForm from './EditForm';
 
 export default async function BookDetailsPage({ params }: PageProps<'/books/[id]'>) {
   'use cache';
   cacheLife('hours');
+  cacheTag('books');
 
   const { id } = await params;
 
-  if (!/^\d{1,9}$/.test(id)) notFound();
+  // if (!/^\d{1,9}$/.test(id)) notFound();
 
-  await new Promise((res, _err) => setTimeout(res, 2000));
+  // await new Promise((res, _err) => setTimeout(res, 2000));
+
+  // throw new Error('GREMLINS');
 
   const book = await getBookById(id);
 
@@ -35,6 +39,8 @@ export default async function BookDetailsPage({ params }: PageProps<'/books/[id]
           ))}
         </ul>
       </section>
+
+      <EditForm book={book} />
     </article>
   );
 }

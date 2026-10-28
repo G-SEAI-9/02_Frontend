@@ -1,3 +1,4 @@
+import 'server-only';
 import postgres from 'postgres';
 import { Author, Book } from './types';
 
@@ -23,4 +24,8 @@ async function getAuthorsOfBook(id: string) {
   return authors;
 }
 
-export { sql, getBooks, getBookById, getAuthorsOfBook };
+async function updateBook(id: number, title: string, release_year: number) {
+  await sql`update books set title = ${title}, release_year = ${release_year} where id = ${id}`;
+}
+
+export { sql, getBooks, getBookById, getAuthorsOfBook, updateBook };

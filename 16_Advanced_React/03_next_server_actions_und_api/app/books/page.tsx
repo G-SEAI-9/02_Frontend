@@ -1,13 +1,15 @@
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import { getBooks } from '../lib/data';
 import Link from 'next/link';
 
 export default async function BooksPage() {
   'use cache';
   cacheLife('days');
+  cacheTag('books');
+
+  await new Promise((res, _err) => setTimeout(res, 2000));
 
   const books = await getBooks();
-
 
   return (
     <div className='flex flex-col gap-4'>
