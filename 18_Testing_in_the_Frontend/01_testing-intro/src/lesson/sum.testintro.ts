@@ -1,6 +1,10 @@
+// Ein Test "von Hand", ganz ohne Test-Framework.
+// So sehen wir, was ein Framework wie Vitest später für uns übernimmt.
 import { sum } from './sum.ts';
 
-// Schritt 1: Arrange
+// Jeder Test folgt dem Muster Arrange – Act – Assert (AAA).
+
+// Schritt 1: Arrange – Eingabe und erwartetes Ergebnis vorbereiten
 const input = {
   a: 5,
   b: 7,
@@ -8,16 +12,19 @@ const input = {
 
 const expectedOutput = 12;
 
-// Schritt 2: Act
+// Schritt 2: Act – die zu testende Funktion aufrufen
 const actualOutput = sum(input.a, input.b);
 
-// Schritt 3: Assert
-
+// Schritt 3: Assert – tatsächliches mit erwartetem Ergebnis vergleichen.
+// Ein geworfener Error bedeutet: Test fehlgeschlagen, das Programm bricht ab.
 if (actualOutput !== expectedOutput) {
   throw new Error(`sum() failed the test!\nExpected: ${expectedOutput}\nActual: ${actualOutput}`);
 } else {
   console.log('Test bestanden!');
 }
+
+// Statt jeden Fall einzeln auszuschreiben, sammeln wir mehrere Testfälle in einer Tabelle
+// (Eingabe + erwartete Ausgabe) und prüfen sie in einer Schleife.
 
 // Arrange
 const casesTable = [
