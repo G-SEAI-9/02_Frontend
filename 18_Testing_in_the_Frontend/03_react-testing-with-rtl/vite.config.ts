@@ -16,9 +16,13 @@ export default defineConfig({
     },
   },
   plugins: [react(), tailwindcss()],
+  // Konfiguration für Vitest
   test: {
+    // describe/test/expect auch ohne Import verfügbar machen
     globals: true,
+    // jsdom simuliert einen Browser (DOM) in Node – ohne das kann render() nichts zeichnen
     environment: 'jsdom',
+    // Wird vor jeder Testdatei ausgeführt (z.B. um jest-dom-Matcher zu laden)
     setupFiles: ['./src/vitest.setup.ts'],
   },
 });
