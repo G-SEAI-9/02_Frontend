@@ -18,7 +18,7 @@ const highlightMatch = (text: string, searchTerm: string) => {
       </mark>
     ) : (
       part
-    )
+    ),
   );
 };
 
@@ -33,8 +33,9 @@ const UserList = () => {
     setError(null);
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
-        signal
+        signal,
       });
+
       if (!response.ok) {
         throw new Error('Failed to fetch users');
       }
@@ -57,10 +58,10 @@ const UserList = () => {
   }, []);
 
   const filteredUsers = users.filter(
-    user =>
+    (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()),
   );
   if (loading) {
     return (
@@ -99,13 +100,9 @@ const UserList = () => {
               placeholder='Search users...'
               className='input input-bordered w-full'
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button
-              className='btn join-item'
-              disabled={!searchTerm}
-              onClick={() => setSearchTerm('')}
-            >
+            <button className='btn join-item' disabled={!searchTerm} onClick={() => setSearchTerm('')}>
               &times;
             </button>
           </div>
@@ -125,7 +122,7 @@ const UserList = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.map(user => (
+                {filteredUsers.map((user) => (
                   <tr key={user.id}>
                     <td>{highlightMatch(user.name, searchTerm)}</td>
                     <td>@{highlightMatch(user.username, searchTerm)}</td>

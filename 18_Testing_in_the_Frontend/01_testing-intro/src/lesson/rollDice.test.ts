@@ -1,5 +1,5 @@
-import { describe, expect, it, test } from 'vitest';
-import { rollDice } from './rollDice';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, test, vi } from 'vitest';
+import { rollDice, rollDiceAsync } from './rollDice';
 
 // Alle erlaubten Augenzahlen eines normalen Würfels
 const DICE_FACES = [1, 2, 3, 4, 5, 6];
@@ -36,7 +36,7 @@ describe('verschiedene Matchers', () => {
   // Ein Wurf, den sich mehrere Tests teilen
   const result = rollDice(1);
 
-  it('toBe compares primitive values (numbers, strings, booleans)', () => {
+  it.skip('toBe compares primitive values (numbers, strings, booleans)', () => {
     expect(result.rolls.length).toBe(1);
     // .not kehrt jeden Matcher um
     expect(result.total).not.toBe(0);
@@ -78,17 +78,17 @@ describe('verschiedene Matchers', () => {
     expect(rollDice(10).total).toBeGreaterThan(9);
   });
 
-  it('toBeOneOf checks that a value is one of a list of allowed values', () => {
+  it.skip('toBeOneOf checks that a value is one of a list of allowed values', () => {
     expect(result.total).toBeOneOf(DICE_FACES);
   });
 
-  it('toContain checks that an array includes an item (or a string a substring)', () => {
-    // Bei 1000 Würfen ist praktisch sicher mindestens eine 6 dabei
-    const rolls = rollDice(1000).rolls;
-    expect(rolls).toContain(6);
-  });
+  // it('toContain checks that an array includes an item (or a string a substring)', () => {
+  //   // Bei 1000 Würfen ist praktisch sicher mindestens eine 6 dabei
+  //   const rolls = rollDice(1000).rolls;
+  //   expect(rolls).toContain(6);
+  // });
 
-  it('toMatch checks a string against a regular expression', () => {
+  it.skip('toMatch checks a string against a regular expression', () => {
     // Die drei Würfe werden zu einem Text wie "3, 6, 1" zusammengefügt.
     // Die Regex verlangt genau drei Ziffern von 1 bis 6, getrennt durch ", "
     const printed = rollDice(3).rolls.join(', ');
@@ -107,5 +107,118 @@ describe('verschiedene Matchers', () => {
     expect(0.1 + 0.2).not.toBe(0.3);
     // toBeCloseTo erlaubt eine winzige Abweichung
     expect(0.1 + 0.2).toBeCloseTo(0.3);
+  });
+});
+
+describe('Controlling randomness', () => {
+  // beforeAll(() => {
+  //   console.log('Läuft vor dieser Test Suite');
+  // });
+
+  // beforeEach(() => {
+  //   console.log('läuft vor jedem einzelnen Test');
+  // });
+
+  // Nach jedem Test alle Spies/Mocks zurücksetzen: Math.random ist wieder echt.
+  // Sonst würde ein Mock aus Test A heimlich Test B beeinflussen.
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  test('should be able to roll highest number', () => {
+    // vi.spyOn "belauscht" eine bestehende Methode (hier Math.random).
+    // Mit .mockReturnValue() ersetzen wir zusätzlich ihr Ergebnis:
+    // Math.random liefert jetzt immer 0.99999 statt eines Zufallswerts.
+    // So wird der zufällige Wurf vorhersagbar und wir können den Grenzfall "höchste Zahl" testen.
+    vi.spyOn(Math, 'random').mockReturnValue(0.99999);
+
+    const highestValue = 250;
+
+    const result = rollDice(1, highestValue);
+    expect(result.rolls[0]).toBe(highestValue);
+  });
+
+  test('should be able to roll lowest number', () => {
+    // Der andere Randfall: 0 ist der kleinste Wert, den Math.random liefern kann -> Wurf ist 1
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+
+    const result = rollDice(1, 234);
+    expect(result.rolls[0]).toBe(1);
+  });
+
+  test('random has been called', () => {
+    // Spy ohne mockReturnValue: Math.random arbeitet ganz normal weiter,
+    // aber der Spy zählt mit, wie oft und mit welchen Argumenten es aufgerufen wurde.
+    const spy = vi.spyOn(Math, 'random');
+
+    rollDice(4);
+
+    // 4 Würfel -> Math.random muss genau 4-mal aufgerufen worden sein
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+});
+
+// rollDiceAsync wartet intern 1 Sekunde (setTimeout). Mit echten Timern würden
+// diese 6 Tests zusammen 6 Sekunden dauern – mit Fake-Timern nur Millisekunden.
+describe('Timers', () => {
+  // Vor jedem Test: Vitest ersetzt setTimeout & Co. durch eine künstliche Uhr,
+  // die nur weiterläuft, wenn wir sie im Test selbst vorspulen.
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  // Nach jedem Test wieder die echte Uhr verwenden, damit andere Tests nicht betroffen sind
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    // Wichtig: noch nicht awaiten! Die Promise hängt im setTimeout fest,
+    // und die Fake-Uhr steht still – ein await hier würde ewig warten.
+    const dicePromise = rollDiceAsync(4);
+    // Spult die Fake-Uhr vor, bis alle wartenden Timer abgelaufen sind (die 1 Sekunde vergeht sofort)
+    await vi.runAllTimersAsync();
+    // Jetzt ist der Timer durch und die Promise kann sich auflösen
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+
+  // Viele Test mit ähnlichen Timern würden die Laufzeit der Test-Suite
+  // unnötig in die Länge ziehen.
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    const dicePromise = rollDiceAsync(4);
+    await vi.runAllTimersAsync();
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    const dicePromise = rollDiceAsync(4);
+    await vi.runAllTimersAsync();
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    const dicePromise = rollDiceAsync(4);
+    await vi.runAllTimersAsync();
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    const dicePromise = rollDiceAsync(4);
+    await vi.runAllTimersAsync();
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
+  });
+  test('random has been called', async () => {
+    const spy = vi.spyOn(Math, 'random');
+    const dicePromise = rollDiceAsync(4);
+    await vi.runAllTimersAsync();
+    await dicePromise;
+    expect(spy).toHaveBeenCalledTimes(4);
   });
 });

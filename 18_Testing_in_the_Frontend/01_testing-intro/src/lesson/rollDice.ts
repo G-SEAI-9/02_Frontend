@@ -11,10 +11,20 @@ export function rollDice(count: number, sides: number = 6): DiceRoll {
   const rolls: number[] = [];
   let total = 0;
   for (let i = 0; i < count; i++) {
-    const roll = Math.floor(Math.random() * sides);
+    const roll = Math.floor(Math.random() * sides) + 1;
     rolls.push(roll);
     total += roll;
   }
 
   return { rolls, total };
+}
+
+// Wie rollDice, aber das Ergebnis kommt erst nach 1 Sekunde (z.B. für eine Würfel-Animation).
+// Dient als Beispiel für Tests mit Fake-Timern.
+export async function rollDiceAsync(count: number, sides: number = 6): Promise<DiceRoll> {
+  const result = rollDice(count, sides);
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  return result;
 }
