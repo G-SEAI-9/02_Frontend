@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:unit": "vitest --project Unit_Tests"
+    "test:unit": "vitest --project Unit_Tests",
+    "test:integration": "vitest --project Integration_Tests"
   },
   "dependencies": {
     "react": "^19.3.1",

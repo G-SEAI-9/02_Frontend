@@ -12,8 +12,8 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src')
-    }
+      '@': resolve(__dirname, './src'),
+    },
   },
   plugins: [react(), tailwindcss()],
   test: {
@@ -26,9 +26,20 @@ export default defineConfig({
           root: 'src',
           environment: 'jsdom',
           setupFiles: ['setup.unit.ts'],
-          include: ['**/*.unit.test.ts?(x)']
-        }
-      }
-    ]
-  }
+          include: ['**/*.unit.test.ts?(x)'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          globals: true,
+          name: 'Integration_Tests',
+          root: 'src/__tests__/integration',
+          environment: 'jsdom',
+          setupFiles: ['setup.integration.ts'],
+          include: ['**/*.int.test.ts?(x)'],
+        },
+      },
+    ],
+  },
 });
